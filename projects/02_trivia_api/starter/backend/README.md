@@ -81,36 +81,120 @@ GET '/categories'
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
 - Returns: An object with a boolean success key and a categories key, that contains a object of id: category_string key:value pairs.
+{
+	'success': True,
+	'categories': {
+		'1' : 'Science',
+		'2' : 'Art',
+		'3' : 'Geography',
+		'4' : 'History',
+		'5' : 'Entertainment',
+		'6' : 'Sports'
+	}
+}
 
 GET '/questions'
 - Fetches a list of jsons with each question id, question string, answer, category, and difficulty paginated based on the current page
 - Request Arguments: None
-- Returns: An object with a boolean success key, a questions key, that contains an dictionary of question id, question string, answer, category, and difficulty, a total_questions key with the total number of returned questions in the dictionary, a categories key, that contains a object of id: category_string key:value pairs, and a current_category key of None.
+- Returns: An object with a boolean success key, a questions key, that contains a list of dictionaries of question id, question string, answer, category, and difficulty, a total_questions key with the total number of returned questions in the dictionary, a categories key, that contains a object of id: category_string key:value pairs, and a current_category key of None.
+{
+	'success': True,
+	'questions': [
+		{
+			'id': 23,
+			'question': 'Which dung beetle was worshipped by the ancient Egyptians?',
+			'answer': 'Scarab',
+			'category': '4',
+			'difficulty': 4
+		}
+	],
+	'total_questions': 1
+	'categories': {
+		'1' : 'Science',
+		'2' : 'Art',
+		'3' : 'Geography',
+		'4' : 'History',
+		'5' : 'Entertainment',
+		'6' : 'Sports'
+	},
+	'current_category': None
+}
 
 DELETE '/questions/<int:question_id>'
 - Deletes the question corresponding with the given question id from the database
 - Request Arguments: question_id, an integer
 - Returns: An object with a boolean success key, the question_id key with the question_id given, and a total_questions key with the number of questions after deletion.
+{
+    'success': True,
+    'question_id': 20,
+    'total_questions': 19
+}
 
 POST '/questions'
 - Inserts a new question with properties based on the form input
 - Request Arguments: a json object with keys question, answer, category, and difficulty
 - Returns: An object with a boolean success key and a totalQuestions key with the number of questions after insertion.
+{
+    'success': True,
+    'totalQuestions': 21
+}
 
 POST '/questions/search'
 - Searches all questions in database based off of a given search term
 - Request Arguments: a json object with a searchTerm key
 - Returns: An object with a boolean success key, a questions key, that contains an dictionary of question id, question string, answer, category, and difficulty of the resulting question set, a total_questions key with the total number of returned questions in the dictionary, and a current_category key of None.
+{
+    'success': True,
+	'questions': [
+		{
+			'id': 23,
+			'question': 'Which dung beetle was worshipped by the ancient Egyptians?',
+			'answer': 'Scarab',
+			'category': '4',
+			'difficulty': 4
+		}
+	],
+    'total_questions': 1
+    'current_category': None
+}
 
 GET '/categories/<int:category_id>/questions'
 - Gets all questions in the specified category
 - Request Arguments: category_id, an integer
 - Returns: An object with a boolean success key, a questions key, that contains an dictionary of question id, question string, answer, category, and difficulty of the questions in the category, a total_questions key with the total number of returned questions in the dictionary, and a current_category key of a dictionary of category id and type.
+{
+    'success': True,
+	'questions': [
+		{
+			'id': 23,
+			'question': 'Which dung beetle was worshipped by the ancient Egyptians?',
+			'answer': 'Scarab',
+			'category': '4',
+			'difficulty': 4
+		}
+	],
+    'total_questions': 1
+    'current_category': {
+    	'id': 4,
+    	'type': 'History'
+    }
+}
 
 POST '/quizzes'
 - Gets the questions one at a time randomly to play the quiz in the specified category, or all if nothing specified, ending when all questions have been played
 - Request Arguments: a json object with the specified quiz_category, if any, and a list of previous_questions, if any
 - Returns: An object with a boolean success key, a question key that contains an dictionary of question id, question string, answer, category, and difficulty of the next random question of the quiz, and a forceEnd boolean flagging if the quiz questions have all been played.
+{
+    'success': True,
+    'question': {
+		'id': 23,
+		'question': 'Which dung beetle was worshipped by the ancient Egyptians?',
+		'answer': 'Scarab',
+		'category': '4',
+		'difficulty': 4
+	},
+	'forceEnd': False
+}
 ```
 
 
